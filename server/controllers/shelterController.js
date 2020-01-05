@@ -9,8 +9,8 @@ shelterController.getShelters = (req, res, next) => {
     .then(data => data.json())
     .then(shelters => {
       const sheltersArr = [];
-      const categoryKeywords = categoryToKeywords[req.body.category]; // ['youth', 'young', 'runaway', 'at-risk']
-      const selectedLocation = req.body.location;
+      const categoryKeywords = categoryToKeywords[req.query.category]; // ['youth', 'young', 'runaway', 'at-risk']
+      const selectedLocation = req.query.location;
       for (let i = 0; i < shelters.features.length; i++) {
         const {
           OBJECTID,
@@ -48,7 +48,7 @@ shelterController.getShelters = (req, res, next) => {
           });
         }
       }
-      res.locals.shelters = sheltersArr;
+      res.locals.shelters = { results: sheltersArr };
       return next();
     })
     .catch(err => console.log("You're in the shelterController!", err));
