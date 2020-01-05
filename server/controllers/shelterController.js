@@ -10,6 +10,7 @@ shelterController.getShelters = (req, res, next) => {
     .then(shelters => {
       const sheltersArr = [];
       const categoryKeywords = categoryToKeywords[req.body.category]; // ['youth', 'young', 'runaway', 'at-risk']
+      const selectedLocation = req.body.location;
       for (let i = 0; i < shelters.features.length; i++) {
         const {
           OBJECTID,
@@ -26,10 +27,11 @@ shelterController.getShelters = (req, res, next) => {
         } = shelters.features[i].attributes;
         // if there is no category word or if the description contains any of the keywords, then push it
         if (
-          !categoryKeywords ||
-          categoryKeywords.find(keyword =>
-            description.toLowerCase().includes(keyword)
-          )
+          (!categoryKeywords ||
+            categoryKeywords.find(keyword =>
+              description.toLowerCase().includes(keyword)
+            )) &&
+          city === selectedLocation
         ) {
           sheltersArr.push({
             OBJECTID,
