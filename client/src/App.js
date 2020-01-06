@@ -36,11 +36,37 @@ function App() {
       <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
-      <ul>
-        {data.results.map((result, i) => (
-          <li key={i}>{result.Name}</li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Zip</th>
+            <th>Hours</th>
+            <th>Phones</th>
+            <th>Website</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.results.map((result, i) => {
+            return (
+              <tr>
+                <td key={i}>{result.Name}</td>
+                <td key={i}>{result.description}</td>
+                <td key={i}>{result.addrln1}</td>
+                <td key={i}>{result.city}</td>
+                <td key={i}>{result.zip}</td>
+                <td key={i}>{result.hours}</td>
+                <td key={i}>{result.phones}</td>
+                <td key={i}>{result.url}</td>
+                <button>Add</button>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </React.Fragment>
   );
 }
