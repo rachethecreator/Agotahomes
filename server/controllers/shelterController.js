@@ -27,11 +27,11 @@ shelterController.getShelters = (req, res, next) => {
         } = shelters.features[i].attributes;
         // if there is no category word or if the description contains any of the keywords, then push it
         if (
-          (!categoryKeywords ||
-            categoryKeywords.find(keyword =>
-              description.toLowerCase().includes(keyword)
-            )) &&
-          city === selectedLocation
+          !categoryKeywords ||
+          (categoryKeywords.find(keyword =>
+            description.toLowerCase().includes(keyword)
+          ) &&
+            city === selectedLocation)
         ) {
           sheltersArr.push({
             OBJECTID,
@@ -55,23 +55,23 @@ shelterController.getShelters = (req, res, next) => {
 };
 
 const categoryToKeywords = {
-  women: ['women', 'pregnant', 'battered', 'domestic violence', 'victims'],
-  families: ['families', 'children', 'family'],
-  youth: ['youth', 'young', 'runaway', 'at-risk'],
-  substance: ['substance', 'drug'],
-  mental: ['mental', 'mentally ill'],
-  veterans: ['veterans'],
-  housing: ['housing', 'shelter', 'motel'],
-  food: ['food'],
-  counseling: ['counseling'],
-  transportation: ['transportation'],
-  employment: ['employment'],
-  disabled: ['developmental', 'disabilities'],
-  holiday: ['holiday'],
-  std: ['hiv', 'aids'],
-  education: ['education'],
-  refugees: ['refugees'],
-  translator: ['translator', 'interpreter']
+  Women: ['women', 'pregnant', 'battered', 'domestic violence', 'victims'],
+  Families: ['families', 'children', 'family'],
+  Youth: ['youth', 'young', 'runaway', 'at-risk'],
+  Substance: ['substance', 'drug'],
+  Mental: ['mental', 'mentally ill'],
+  Veterans: ['veterans'],
+  Housing: ['housing', 'shelter', 'motel'],
+  Food: ['food'],
+  Counseling: ['counseling'],
+  Transportation: ['transportation'],
+  Employment: ['employment'],
+  Disabled: ['developmental', 'disabilities'],
+  Holiday: ['holiday'],
+  Std: ['hiv', 'aids'],
+  Education: ['education'],
+  Refugees: ['refugees'],
+  Translator: ['translator', 'interpreter']
 };
 
 module.exports = shelterController;

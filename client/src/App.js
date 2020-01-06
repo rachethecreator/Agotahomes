@@ -11,15 +11,29 @@ function App() {
 
   const handleSubmit = e => {
     e.preventDefault();
-    if (!location || !category)
+    if (!location || !category) {
       alert('Please provide both location and category selections');
+      return;
+    }
     axios
       .get(
-        `http://localhost:3000/api?location=${location}&category=${category}`
+        `http://localhost:3000/api/home?location=${location}&category=${category}`
       )
       .then(res => setData(res.data))
       .catch(err => console.log(err));
   };
+  // console.log('data.results is an array of objects', data.results);
+
+  const headings = [
+    'Name',
+    'Description',
+    'Address',
+    'City',
+    'Zip',
+    'Hours',
+    'Phones',
+    'Website'
+  ];
 
   return (
     <React.Fragment>
@@ -38,10 +52,46 @@ function App() {
       </button>
       <ul>
         {data.results.map((result, i) => (
-          <li key={i}>{result.Name}</li>
+          <ResultsTable key={i} headings={headings} rows={result} />
         ))}
       </ul>
     </React.Fragment>
+  );
+}
+
+function ResultsTable({ headings, rows }) {
+  // console.log('rows are objects', rows);
+
+  const { Name, description, addrln1, city, zip, hours, phones, url } = rows;
+
+  // console.log('destructured here', [
+  //   Name,
+  //   description,
+  //   addrln1,
+  //   city,
+  //   zip,
+  //   hours,
+  //   phones,
+  //   url
+  // ]);
+
+  return (
+    <table>
+      <thead>
+        {headings.map((heading, i) => {
+          <th key={i}>{heading}</th>;
+        })}
+      </thead>
+      <tbody>
+        {[Name, description, addrln1, city, zip, hours, phones, url].map(
+          (cell, i) => {
+            <tr>
+              <td key={i}>{cell}</td>
+            </tr>;
+          }
+        )}
+      </tbody>
+    </table>
   );
 }
 

@@ -3,7 +3,7 @@ const shelterController = require('../controllers/shelterController');
 
 const router = express.Router();
 
-router.get('/', shelterController.getShelters, (req, res) => {
+router.get('/home', shelterController.getShelters, (req, res) => {
   res.status(200).json(res.locals.shelters);
 });
 

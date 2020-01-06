@@ -1,71 +1,71 @@
 const categoriesArray = [
   {
-    label: 'women',
-    value: 'women'
+    label: 'Women',
+    value: 'Women'
   },
   {
-    label: 'families',
-    value: 'families'
+    label: 'Families',
+    value: 'Families'
   },
   {
-    label: 'youth',
-    value: 'youth'
+    label: 'Youth',
+    value: 'Youth'
   },
   {
-    label: 'substance',
-    value: 'substance'
+    label: 'Substance',
+    value: 'Substance'
   },
   {
-    label: 'mental',
-    value: 'mental'
+    label: 'Mental',
+    value: 'Mental'
   },
   {
-    label: 'veterans',
-    value: 'veterans'
+    label: 'Veterans',
+    value: 'Veterans'
   },
   {
-    label: 'housing',
-    value: 'housing'
+    label: 'Housing',
+    value: 'Housing'
   },
   {
-    label: 'food',
-    value: 'food'
+    label: 'Food',
+    value: 'Food'
   },
   {
-    label: 'counseling',
-    value: 'counseling'
+    label: 'Counseling',
+    value: 'Counseling'
   },
   {
-    label: 'transportation',
-    value: 'transportation'
+    label: 'Transportation',
+    value: 'Transportation'
   },
   {
-    label: 'employment',
-    value: 'employment'
+    label: 'Employment',
+    value: 'Employment'
   },
   {
-    label: 'disabled',
-    value: 'disabled'
+    label: 'Disabled',
+    value: 'Disabled'
   },
   {
-    label: 'holiday',
-    value: 'holiday'
+    label: 'Holiday',
+    value: 'Holiday'
   },
   {
-    label: 'std',
-    value: 'std'
+    label: 'Std',
+    value: 'Std'
   },
   {
-    label: 'education',
-    value: 'education'
+    label: 'Education',
+    value: 'Education'
   },
   {
-    label: 'refugees',
-    value: 'refugees'
+    label: 'Refugees',
+    value: 'Refugees'
   },
   {
-    label: 'translator',
-    value: 'translator'
+    label: 'Translator',
+    value: 'Translator'
   }
 ];
 export default categoriesArray;
