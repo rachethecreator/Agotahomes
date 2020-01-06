@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import axios from 'axios';
+import ResultsTable from './ResultsTable';
 import locationsArray from './locationsArray';
 import categoriesArray from './categoriesArray';
 
@@ -8,6 +9,43 @@ function App() {
   const [location, setLocation] = useState('');
   const [category, setCategory] = useState('');
   const [data, setData] = useState({ results: [] });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [bookmark, setBookmark] = useState({ favs: [] });
+
+  // useEffect(() => {
+  //   function handleClick(e) {
+  //     // e.preventDefault();
+  //     //not logged in? alert login
+  //     // if (!isLoggedIn) {
+  //     //   alert('Please Sign Up / Log In');
+  //     //   return;
+  //     // }
+  //     const id = e.target.id;
+  //     setBookmark(data.results[id]);
+  //     console.log('this is the data.results at id', data.results[id]);
+  //     console.log('this is the bookmark', bookmark);
+  //     // console.log('selected data here', data.results[id]);
+  //     //logged in? axios.post to add user favs and then display the favs page/component
+  //     // axios.post('/favs');
+  //   }
+  // }, []);
+
+  const handleSaveClick = e => {
+    e.preventDefault();
+    //not logged in? alert login
+    // if (!isLoggedIn) {
+    //   alert('Please Sign Up / Log In');
+    //   return;
+    // }
+    const id = e.target.id;
+    setBookmark(data.results[id]);
+    console.log('this is the data.results at id', data.results[id]);
+    console.log('this is the bookmark', bookmark);
+    // console.log('selected data here', data.results[id]);
+    //logged in? axios.post to add user favs and then display the favs page/component
+    // axios.post('/favs');
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -17,12 +55,12 @@ function App() {
     }
     axios
       .get(
-        `http://localhost:3000/api/home?location=${location}&category=${category}`
+        `http://localhost:3000/api?location=${location}&category=${category}`
       )
       .then(res => setData(res.data))
       .catch(err => console.log(err));
+    setIsSubmitted(true);
   };
-  // console.log('data.results is an array of objects', data.results);
 
   const headings = [
     'Name',
@@ -34,6 +72,40 @@ function App() {
     'Phones',
     'Website'
   ];
+
+  const rows = data.results.map((result, i) => {
+    return (
+      <tr id={i}>
+        <td id={i} key={i}>
+          {result.Name}
+        </td>
+        <td id={i} key={i}>
+          {result.description}
+        </td>
+        <td id={i} key={i}>
+          {result.addrln1}
+        </td>
+        <td id={i} key={i}>
+          {result.city}
+        </td>
+        <td id={i} key={i}>
+          {result.zip}
+        </td>
+        <td id={i} key={i}>
+          {result.hours}
+        </td>
+        <td id={i} key={i}>
+          {result.phones}
+        </td>
+        <td id={i} key={i}>
+          {result.url}
+        </td>
+        <button id={i} key={i} onClick={handleSaveClick}>
+          Add
+        </button>
+      </tr>
+    );
+  });
 
   return (
     <React.Fragment>
@@ -50,48 +122,10 @@ function App() {
       <button type="submit" onClick={handleSubmit}>
         Submit
       </button>
-      <ul>
-        {data.results.map((result, i) => (
-          <ResultsTable key={i} headings={headings} rows={result} />
-        ))}
-      </ul>
+      {isSubmitted && <ResultsTable headings={headings} rows={rows} />}
+      {/* {!isLoggedIn && <LogInPage handleClick={handleClick}/>}
+      {isLoggedIn && <FavsPage />} */}
     </React.Fragment>
-  );
-}
-
-function ResultsTable({ headings, rows }) {
-  // console.log('rows are objects', rows);
-
-  const { Name, description, addrln1, city, zip, hours, phones, url } = rows;
-
-  // console.log('destructured here', [
-  //   Name,
-  //   description,
-  //   addrln1,
-  //   city,
-  //   zip,
-  //   hours,
-  //   phones,
-  //   url
-  // ]);
-
-  return (
-    <table>
-      <thead>
-        {headings.map((heading, i) => {
-          <th key={i}>{heading}</th>;
-        })}
-      </thead>
-      <tbody>
-        {[Name, description, addrln1, city, zip, hours, phones, url].map(
-          (cell, i) => {
-            <tr>
-              <td key={i}>{cell}</td>
-            </tr>;
-          }
-        )}
-      </tbody>
-    </table>
   );
 }
 
