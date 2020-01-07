@@ -11,40 +11,22 @@ function App() {
   const [data, setData] = useState({ results: [] });
   const [isSubmitted, setIsSubmitted] = useState(false);
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [bookmark, setBookmark] = useState({ favs: [] });
-
-  // useEffect(() => {
-  //   function handleClick(e) {
-  //     // e.preventDefault();
-  //     //not logged in? alert login
-  //     // if (!isLoggedIn) {
-  //     //   alert('Please Sign Up / Log In');
-  //     //   return;
-  //     // }
-  //     const id = e.target.id;
-  //     setBookmark(data.results[id]);
-  //     console.log('this is the data.results at id', data.results[id]);
-  //     console.log('this is the bookmark', bookmark);
-  //     // console.log('selected data here', data.results[id]);
-  //     //logged in? axios.post to add user favs and then display the favs page/component
-  //     // axios.post('/favs');
-  //   }
-  // }, []);
+  const [bookmark, setBookmark] = useState([]);
 
   const handleSaveClick = e => {
     e.preventDefault();
-    //not logged in? alert login
     // if (!isLoggedIn) {
     //   alert('Please Sign Up / Log In');
     //   return;
     // }
     const id = e.target.id;
     setBookmark(data.results[id]);
-    console.log('this is the data.results at id', data.results[id]);
-    console.log('this is the bookmark', bookmark);
-    // console.log('selected data here', data.results[id]);
     //logged in? axios.post to add user favs and then display the favs page/component
-    // axios.post('/favs');
+    axios
+      .post('/favs', {
+        favorites: bookmark
+      })
+      .catch(err => console.log(err));
   };
 
   const handleSubmit = e => {
